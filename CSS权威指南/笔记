@@ -1,0 +1,16 @@
+1.替换元素与非替换元素
+    替换元素（replaced element）:用来替换元素内容的部分并非由文档内容直接表示。（img,input）
+    非替换元素（Nonreplaced element）：其内容由用户代理（浏览器等）在元素本身生成的框中显示。（span,p,div）
+2.块级元素和行内元素
+    XHTML层次结构要求：行内元素可以继承块级元素，而反之不行。
+    XHTML规定不能在行内元素内嵌套生成块级元素。
+3.外部样式
+    外部样式表只能有CSS规则和CSS注释，如果外部样式表出现其它标记，会导致其中一部分或全部被忽略。
+4.候选样式表（alternate style sheet）
+    将rel设置为alternate stylesheet就可以定义候选样式表，只有在用户选择这个样式表时才会用于文档表现。 利用link标签
+    rel="alternate stylesheet"属性实现界面动态换肤会在chrome和ie上出现兼容性问题。所以使用disabled来代替，也可以
+    使用js来操作dom，增加和删除link来实现换肤。
+    alternate stylesheet可以用来在不同媒体设备中显示不同的样式。未测试。
+5.<style type="text/css"><!--
+    @import url(sheet2.css)
+    --></style> 这是兼容老版本浏览器的一种写法。

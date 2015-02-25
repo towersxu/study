@@ -14,3 +14,29 @@
 5.<style type="text/css"><!--
     @import url(sheet2.css)
     --></style> 这是兼容老版本浏览器的一种写法。
+6.属性选择器
+    <p class="urgent warning">想选择class属性中包含warning的元素</p>
+    p[class~="warning"] {}
+    注意选择器中出现了一个波浪号（~）。因为class中用空格来表示多个类名，如果不用~则会变成完全值匹配。
+    p[class~="warning"]等价于p.warning。
+
+    *[lang |= "en"] {}匹配所有lang属性等于en或者以en开头的元素。
+7.伪类选择器
+    h2:first-letter {}
+8.Web安全颜色
+    Web安全颜色指的是在256色计算机系统上总能避免抖动的颜色。
+    RGB值为20%和51的倍数（0%也是）
+    十六进制记法：00、33、66、99、CC、FF
+9.字体大小
+    em:em的值会相对于父元素的字体大小改变。
+    font-size必须放在line-height之前。
+10.字体系列
+    Times包括：TimesRegular,TimesBold,TimesItalic等等
+    Serif包括：Times,Georgia和New Century Schoolbook
+    Sans-serif包括：Helvetica,Geneva,Verdana,Arial,Univers
+    Monospace包括：Courier,Courier New,Andale Mono(模拟打印机打出的文本)
+    Cursive包括：Zapf Chancery,Author,Comic Sans(模拟人的手写本)
+    通常文档大部分采用serif字体（如Times）,人名采用cursive字体（如Author）,标题采用sans-serif(如Helvetica).
+    注意字体有空格加引号
+    {font-weight:bolder;}/*让字体更粗*/
+

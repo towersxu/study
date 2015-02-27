@@ -39,4 +39,16 @@
     通常文档大部分采用serif字体（如Times）,人名采用cursive字体（如Author）,标题采用sans-serif(如Helvetica).
     注意字体有空格加引号
     {font-weight:bolder;}/*让字体更粗*/
+11.text-indent可以用在所有的块级元素上，若行内元素想要缩进，则可以使用内边距。
 
+12.由于line-height的继承性，所以当父元素设置line-height时，子元素如果与父元素字体不一样，注意重设line-height.
+    还有一种方法就是将line-height指定为数字（如1.5，表示行高为元素的1.5倍），这样，所有的元素都将根据自身的大小来设置行高。
+13.vertical-align
+    该属性只能用于行内元素和替换元素，如图像和表单的输入元素。
+    sub:使一个元素变成下标，这意味着其基线（如果是替换元素，则是其底端）相对于父元素基线降低。同理：super则是提高。
+14.word-spacing和letter-spacing
+    word-spacing的值可能受到text-align属性值的影响。但是letter-spacing的值只要不设置为normal则不会受到text-indent的影响。
+15.white-space
+    nowrap:合并空白符，防止元素换行，除非使用了一个br元素。
+    pre-line:合并空白符，允许换行。
+    pre-wrap:保留空白符，允许换行。

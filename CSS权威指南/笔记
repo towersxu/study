@@ -52,3 +52,24 @@
     nowrap:合并空白符，防止元素换行，除非使用了一个br元素。
     pre-line:合并空白符，允许换行。
     pre-wrap:保留空白符，允许换行。
+16.inline-block
+    行内块元素作为一个行内框与其他元素和内容相关。行内块元素会作为替换元素放在行中，但是在他内部，会像块级元素一样设置内容的格式。
+17.border
+    当父元素高度大于子元素除margin部分的高度，但是小于子元素加上margin的高度时，子元素的margin会溢出父元素。但是若在父元素上
+    增加边框，则子元素的margin部分不会溢出。（注意：IE7还是会溢出，IE8则不会了。）
+18.背景
+    建议只要有背景图片，就应该包含一个背景色。
+    background-position：33% 66%;水平3分之一，垂直三分之二
+    background-attachment:fixed;IE6抖动解决方法：
+        第一，html body{_background-image:url(about:blank);_background-attachment:fixed}
+        如果body本身有背景设置的话，也可以用下面的方法代替：
+        * html,* html body { _text-overflow:ellipsis; }
+        可以用这个代替 background-image:url(about:blank);来防抖动
+19.浮动
+    浮动在包含块未形成BFC时，不会撑开包含块的高度，但浮动的左右位置会受限于包含块的宽度。包含块内的其它元素会环绕浮动元素。
+    当浮动元素margin设置为负数时，元素会看起来像浮出了包含块的边界。
+    当一个元素被设置为浮动时，其它元素则会流过它（这个元素就像一块水中的石头，其它元素则是水。注意是流过，而不是绕过）。
+    如果其它元素不想流过，则可以使用清除浮动来避开这个元素。就是换行。
+    清除浮动会达到BFC这种撑开包含块高度的效果。
+20.visibility
+    可继承，但是若果父元素为hidden但子元素为visible，则子元素是可见的。

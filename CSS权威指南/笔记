@@ -73,3 +73,7 @@
     清除浮动会达到BFC这种撑开包含块高度的效果。
 20.visibility
     可继承，但是若果父元素为hidden但子元素为visible，则子元素是可见的。
+21.表格布局
+    表格分为6层布局，由于列样式在行样式下面，所以行背景会覆盖列背景。
+22.CSS2系统关键字
+    caption,icon,menu,message-box,small-caption,status-bar这六个只能用于font。

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+
+    <script>
+        // A simple way to check for HTML strings or ID strings
+        // Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
+        var reg = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/;
+        var testString = '#abc';
+        // Match a standalone tag
+        //If a single string is passed in and it's a single tag
+        //var rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
+        //匹配以<开头，后接至少一个ASCII字符可再接空白符，0次或一次/，
+        //(?:<\/\1>)?匹配0次或一次  </和前面(\w+)匹配的一样的内容，后跟>
+        var rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
+        testString = "<p></p>";
+        console.log(rsingleTag.exec(testString));
+        testString= "<p> </p>";
+        console.log(rsingleTag.exec(testString));
+        testString= "<p ></p>";
+        console.log(rsingleTag.exec(testString));
+        testString= "<div><p></p></div>";
+        console.log(rsingleTag.exec(testString));
+        testString = "<img />";
+        console.log(rsingleTag.exec(testString));
+        testString = "<img  >";
+        console.log(rsingleTag.exec(testString));
+
+        console.log(testString.match(rsingleTag));
+
+
+    </script>
+</body>
+</html>

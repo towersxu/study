@@ -97,3 +97,33 @@
         这样判断是因为IE6，IE7以及opera的某些版本，会更具form的name来查询，而不是id。
     3.if (jQuery.isFunction(selector)){ return rootjQuery.ready(selector)}
         可以看出，$(function)是$(document).ready(function) 的简写。
+
+##jQuery.buildFragment(args,nodes,scripts)
+
+###原理
+      先创建一个文档片段DocumentFragment,然后调用方法jQuery.clean(elems,context,fragment,script)将HTML代码转换为DOM元素，
+    存储在创建的文档片段中。
+      文档片段DocumentFragment表示文档的一部分，但不属于文档树。当把DocumentFragment插入文档数时，插入的不是DocumentFragment
+    本身，而是他的所有子孙节点，即可以一次向文档树中插入多个节点。提升性能。
+      如果HTML代码符合缓存条件，方法jQuery.buildFragment()还会把转换后的DOM元素缓存起来，下次（实际上是第三次）转换相同的HTML
+    代码时直接从缓存中读取，不需要重复转换。
+###代码
+      参数args:数组，含有待转换为DOM元素的HTML代码。
+      参数nodes:数组，含有文档对象，jQuery对象或DOM元素，用于修正创建文档片段DocumentFragment的文档对象。
+      参数scripts:数组，用于存放HTML代码中的script元素。jQuery.clean()把HTML代码转换为DOM元素后，会提取其中的script元素并存入
+    数组scripts。
+###缓存条件
+    1.args的长度为1且第一个元素是字符串，即数组args中只含有一段HTML代码。 typeof first === "string"
+    2.HTML代码长度小于512，否则可能会导致缓存占用的内存过大。
+    3.文档对象doc是当前文档对象，即至缓存为当前文档创建的DOM元素，不缓存其他框架（iframe）的。
+    4.HTML代码以左尖括号开头，即只缓存DOM元素不缓存文本节点。、
+    5.HTML代码中不能含有<script>,<object>,<embed>,<option>,<style> 因为如果缓存option会导致丢失option的选中状态。
+    6.当前浏览器可以正确的复制单选按钮和复选框的选中状态checked,或者HTML代码中单选按钮和复选按钮没有被选中。
+    7.当前浏览器可以正确地复制HTML5元素或者HTML代码中没有HTML5标签。
+
+##jQuery.clean(elems,context,fragment,script)
+
+###原理
+      方法jQuery.clean()负责把HTML代码转换成DOM元素，并提取其中的script元素。该方法先创建一个临时的div元素，并将其插入一个
+    安全的文档片段中，然后把HTML元素代码赋值给div元素的innerHTML属性，浏览器会自动生成DOM元素，最后解析div元素的子元素得到
+    转换后的DOM元素。

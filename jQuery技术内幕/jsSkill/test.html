@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../js/jquery-1.7.1.js"></script>
+
+</head>
+<body>
+    <script>
+        var a;
+        var b = null;
+        var c = 0;
+//        alert(a != null);  //false
+//        alert(b != null);  //false
+//        alert(c != null);  //true
+//        alert(a !== null); //true
+        var elems = ['a','b',0,'',1,a,b,0];
+        console.log(elems);
+
+        for(var i= 0,elem;(elem = elems[i]) != null;i++){
+            //判断elem的有效性时使用的是“!=”，这样可以同时过滤null和undefined，却不会过滤整形数组0
+            console.log(elem);
+            if(typeof elem === "number"){
+                elem +='';//数字转换为字符串小技巧
+            }
+            if(!elem){   //由于0已经被转换为字符串了，所有可以直接判断空字符串；
+                continue;
+            }
+            console.log('--------------');
+        }
+    </script>
+</body>
+</html>

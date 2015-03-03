@@ -33,7 +33,24 @@
 
         console.log(testString.match(rsingleTag));
 
+        //检测HTML代码中是否含有标签、字符代码或数字代码。
+        //标签的特征字符是左尖括号“<”,字符代码的特征是“&”，数字代码的特征字符是“&#”。
+        //例如特殊符号双引号"的字符代码&quot;数字代码&#34;
+        var rhtml = /<|&#?\w+;/;
 
+        //修正自关闭代码
+        //(?!area|br|col|embed|hr|img|input|link|meta|param)反前向声明，要求接下来的字符不与其匹配，意思就是如果
+        //HTML代码中出现了这些标签，则不做任何处理。
+        //(([\w:]+)[^>]*)是第一个分组，其中包含了标签和属性。
+        //([\w:]+)是第二个分组，其中只包含了标签。
+        var rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig;
+        var str = '<div class="abc"/>'.replace(rxhtmlTag,'<$1></$2>');
+        console.log(str);
+
+        //提取HTML代码中的标签部分，删除前导空白符和左尖括号(为什么要冒号？？？)
+        var rtagName = /<([\w:]+)/;
+        str = '<div style="width: 100px;"></div>';
+        console.log(rtagName.exec(str));
     </script>
 </body>
 </html>

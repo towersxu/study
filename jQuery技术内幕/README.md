@@ -141,7 +141,7 @@
     的方法createTextNode()创建文本节点、调用方法createElement()创建临时div元素。
       参数fragment：文档片段，作为存放转换后的DOM元素的占位符，该参数在jQuery.buildFragment中被创建。
       参数scripts：数组，用于存放转换后的DOM元素中的scripts元素。
-###修正文档
+###要点
     * 由于在.before()和.after()中直接调用clean()方法，并且只传入elems参数，所以要对context进行修正。
     * context = context || document
     由于在IE中，context.createElement失败返回的是object，所以还需增加验证
@@ -163,3 +163,20 @@
     再层层剥去包裹的父元素，得到转换后的DOM元素。
     * 返回转换后的DOM元素，如果传入了文档片段fragment和数组scripts，那么调用jQuery.clean()的代码应从fragment
     中读取转换后的DOM元素，从scripts中读取合法的script元素。如果未传入，则只能使用返回值ret.
+
+##jQuery.extend([deep],target,object1[,objectN])
+    等同于jQuery.fn.extend([deep],target,object1[,objectN]),用于合并两个或多个对象的属性到第一个对象。
+###参数
+      参数deep：可选布尔值，表示是否进行深度合并（即递归合并）。合并行为默认是不递归的，如果第一个参数的属性
+    本身是一个对象或者数组，那么他的属性会被后面的其它参数的同名属性完全覆盖。如果为true，表示进行深度合并，
+    合并过程是递归的。
+      参数target：目标对象
+      参数object1[,objectN]:源对象，包含待合并属性。如果提供了2个或者更多的对象，所有源对象的属性都将会合并
+    到目标对象；如果仅提供一个对象，意味着参数target被忽略，jQuery或者jQuery.fn被当做目标对象，通过这种方式
+    可以再jQuery或者jQuery.fn上添加新的属性和方法，jQuery的其他模块大都是这么实现的。
+###
+    1.当参数个数不定时，函数参数不列出，采用argument获取。
+    2.如果不是深度合并，核心代码为target[name] = object[name]
+    3.深度合并递归停止点 if (target === copy) {continue;}
+
+

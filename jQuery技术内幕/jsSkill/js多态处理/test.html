@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+
+        //Person
+        // 参数1：boolean，可选，若设置了，则表示名称是随机生成。若为true,表示中文名。
+        // 参数2：名字 可选
+        // 参数3：年龄 可选
+        // 参数4：国籍 可选
+        // 参数5：...
+        // 如果不传参数，则随机生成一个英文名字
+        // 怎样处理参数的不一致？
+        // 例如Person(12),表示生成一个12岁的人名。
+        // Person(true,12)则是一个12岁的中文名的人。
+        // Person('xt',12)则是一个12岁叫xt的人。
+        // Person(false,'England')则是随机生成一个英国人。
+        // Person('张三','America')则是一个叫做张三的美国人。
+        // Person('王伟',24,'China')
+        function Person(){
+            var target,
+                i = 0,
+                length = arguments.length;
+            if(!length){
+                this.name = randomName(false);
+            }else{
+                target = arguments[0];
+                //判断第一个参数是否是boolean?
+                if(typeof target === "boolean"){
+                    this.name = randomName(target);
+                    target = arguments[1];
+                    i++;
+                }
+                while(length > 0){
+                    if(typeof target === "string"){
+                        if(!this.name){
+                            this.name = target;
+                            i++;
+                            target = arguments[i];
+                            length --;
+                        }else{
+                            this.country = target;
+                            length = 0;
+                        }
+                    }
+                    if(typeof target === "number"){
+                        this.age = target;
+                        i++;
+                        target = arguments[i];
+                        length --;
+                    }
+                }
+            }
+
+        }
+        function randomName(flag){return 'randonName-'+flag}
+        var p = new Person(12,'japan');
+        console.log(p);
+    </script>
+</body>
+</html>

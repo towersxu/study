@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+</head>
+<body>
+
+<button id="btn">click</button>
+<script type="text/javascript">
+    function $(str){
+        return document.getElementById(str)
+    }
+    function CreateScript(src) {
+        var Scrip=document.createElement('script');
+        Scrip.src=src;
+        document.body.appendChild(Scrip);
+    }
+    function callback(str) {
+        console.log(str);//Object { email="中国", email2="中国222"}
+    }
+    $('btn').onclick=function(){
+        CreateScript("http://2.xthtml5.sinaapp.com/ajax")
+    }
+</script>
+</body>
+</html>

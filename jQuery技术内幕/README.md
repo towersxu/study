@@ -107,7 +107,7 @@
     本身，而是他的所有子孙节点，即可以一次向文档树中插入多个节点。提升性能。
       如果HTML代码符合缓存条件，方法jQuery.buildFragment()还会把转换后的DOM元素缓存起来，下次（实际上是第三次）转换相同的HTML
     代码时直接从缓存中读取，不需要重复转换。
-###代码
+###参数
       参数args:数组，含有待转换为DOM元素的HTML代码。
       参数nodes:数组，含有文档对象，jQuery对象或DOM元素，用于修正创建文档片段DocumentFragment的文档对象。
       参数scripts:数组，用于存放HTML代码中的script元素。jQuery.clean()把HTML代码转换为DOM元素后，会提取其中的script元素并存入
@@ -127,3 +127,39 @@
       方法jQuery.clean()负责把HTML代码转换成DOM元素，并提取其中的script元素。该方法先创建一个临时的div元素，并将其插入一个
     安全的文档片段中，然后把HTML元素代码赋值给div元素的innerHTML属性，浏览器会自动生成DOM元素，最后解析div元素的子元素得到
     转换后的DOM元素。
+      安全文档片段指能正确渲染HTML5元素的文档片段，通过在文档片段上创建HTML5元素，可以教会浏览器正确的渲染HTML5元素。
+      如果HTML代码中含有需要包裹在父标签中的子标签，例如<option>需要包裹在<select>中，方法jQuery.clean()会先在HTML
+    代码的前后加上父标签和关闭标签，在设置临时div元素的innerHTML属性生成DOM元素后，在层层剥去包裹的父元素，取出HTML
+    代码对应的DOM元素。
+      如果HTML代码中含有<script>标签，为了能执行其中的script代码或者其引用的文件，在设置临时div元素的innerHTML属性
+    生成DOM元素后，jQuery.clean()会提取<script>中的元素放入scripts数组中.注意，含有<script>标签的HTML代码设置给某
+    个元素innerHTML后，其中的script代码并不会自动执行，所引用的javascript文件也不会加载和执行。(3-script自动执行)
+
+###参数
+      参数elems:数组，包含了待转换的HTML代码。
+      参数context：文档对象，该参数在方法jQuery.buildFragment()中被修改为正确的文档对象（变量doc），稍后会调用它
+    的方法createTextNode()创建文本节点、调用方法createElement()创建临时div元素。
+      参数fragment：文档片段，作为存放转换后的DOM元素的占位符，该参数在jQuery.buildFragment中被创建。
+      参数scripts：数组，用于存放转换后的DOM元素中的scripts元素。
+###修正文档
+    * 由于在.before()和.after()中直接调用clean()方法，并且只传入elems参数，所以要对context进行修正。
+    * context = context || document
+    由于在IE中，context.createElement失败返回的是object，所以还需增加验证
+    if( typeof context.createElement ==="undefined"){
+        context = context.ownerDocument || context[0] && context[0].ownerDocument || document;
+    }
+
+    * 创建option如果包含在单选的<select>中，创建的第一个option元素的属性会被浏览器默认设置为true，而如果
+    包含在多选的<select multiple='multiple'>中，则不会被浏览器修改。
+    * 在IE9以下的浏览器中，不能序列化标签<link>和<script>,即通过浏览器的innerHTML机制不能将其转换为对应的
+    script元素和link元素。解决方案是在标签<link>和<script>外面再包裹一层元素再转换。包裹的元素定义在
+    wrapMap._default中，_default默认为[0,"",""],如果jQuery.support.htmlSerialize为false，则会在第5675
+    行被修正为[1,"div<div>","</div>"]。                          (4-innerHTML插入script元素兼容性问题)
+    * 创建安全片段:IE9以下的浏览器不支持HTML5元素，如果遇到未知标签（如<article>）,浏览器会向DOM树插入一个
+    没有子元素的空元素。解决方法是在使用未知标签之前，使用document.createElement('未知标签')创建一个对应的
+    DOM元素，这样就“教会”浏览器正确的解析和渲染这个未知标签。    (jQuery1.7.1 5667行)
+    * 利用浏览器的innerHTML机制将HTML代码转换为DOM元素
+    先为HTML代码包裹必要的父标签，然后赋值给临时的div元素的innerHTML属性，从而将HTML代码转换为DOM元素，之后
+    再层层剥去包裹的父元素，得到转换后的DOM元素。
+    * 返回转换后的DOM元素，如果传入了文档片段fragment和数组scripts，那么调用jQuery.clean()的代码应从fragment
+    中读取转换后的DOM元素，从scripts中读取合法的script元素。如果未传入，则只能使用返回值ret.

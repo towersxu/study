@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        //创建一个临时div
+        var div = document.createElement('div');
+        //link不包裹元素输出0
+        div.innerHTML = '<link rel="stylesheet" type="text/css" href="test.css" />';
+        console.log(div.getElementsByTagName('link').length);
+        //link包裹元素输出1
+        var div1 = document.createElement('div');
+        div1.innerHTML = 'div<div><link rel="stylesheet" type="text/css" href="test.css" /></div>';
+        console.log(div1.getElementsByTagName('link').length)
+    </script>
+</body>
+</html>

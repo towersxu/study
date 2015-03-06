@@ -178,5 +178,31 @@
     1.当参数个数不定时，函数参数不列出，采用argument获取。
     2.如果不是深度合并，核心代码为target[name] = object[name]
     3.深度合并递归停止点 if (target === copy) {continue;}
-
-
+##jQuery其它方法技巧
+    1.使用get()方法时，参数可以为负数，这是可以使用length+num计算来获取负索引所在的位置。
+    2.each(callback,args),jQuery.each(object,callback,args)
+        参数object:待遍历的对象或数组
+        参数callbacks:回调函数，会在数组的每个元素或对象的每个属性上执行。
+        参数args:传给回调函数callbacks的参数数组，可选。如果没有传入参数。
+        if (callback.apply(object[ name ], args) === false) {break;}
+    3.map(callback(value,indexOrKey))，jQuery.map(arrayOrObject,callback(value,indexOrKey))
+      map()遍历当前jQuery对象，在每个元素上执行回调函数，并将回调函数的返回值放入一个新jQuery对象中。该方法常用于
+    获取或设置DOM元素集合的值。
+      执行回调函数时，关键字this指向当前元素。回调函数可以返回一个独立的数据项或者数据项数组，返回值将被插入
+    结果集当中。    304行
+      jQuery.map()对数组中的每个元素或对象的每个属性调用回调函数，并将函数的返回值放入一个新的数组中。执行
+    回调函数时传入两个参数：数组元素或属性值，元素下标或属性名。
+      return ret.concat.apply([], ret)    在空数组[]上调用方法concat()扁平化结果集ret中的元素，并返回。
+    4.原型方法.pushStack(elements,name,argument)
+      创建一个新的空jQuery对象，然后把DOM元素集合放入这个jQuery对象中，并保留对当前jQuery对象的引用。 239
+        参数elems:将放入新jQuery对象的元素数组（或类数组对象）。
+        参数name:产生元素数组elems的jQuery方法名。
+        参数selector:传给jQuery方法的参数，用于修正原型属性.selector。因为jQuery对象都包含了selector属性。
+    5.方法.end()结束当前链条中最近的筛选操作，并将匹配元素集合还原为之前的状态。
+        return this.prevObject || jQuery.constructor(null)  返回前一个jQuery对象，如果不存在则返回空的对象。
+      pushStack入栈，end出栈
+    6.slice
+        return this.pushStack( slice.apply(this,arguments),"slice",slice.call(arguments).join(",") );
+      先借用数组方法slice()从当前jQuery对象中获取指定范围的子集(数组)，在调用方法.pushStack()把子集转换为jQuery
+      对象，同时通过属性prevObject保留了对当前jQuery对象的引用。
+        字符串转数组的快速方法 i = +i 这就直接将i变为了数字。

@@ -8,9 +8,13 @@
 <body>
     <button id="btn">click</button>
     <script>
-        var i= '1';
-        i = +i;
-        console.log(++i);
+        var obj = {
+            'name':'xt'
+        };
+        $("#btn").click($.proxy(function(){
+            alert(this.name);
+        },obj));
+
     </script>
 </body>
 </html>

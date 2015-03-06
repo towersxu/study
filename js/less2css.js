@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 15-1-30.
+ * Created by xt on 15-1-30.
  */
 var fs = require('fs'),
     path = require('path'),

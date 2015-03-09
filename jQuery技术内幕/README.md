@@ -206,3 +206,24 @@
       先借用数组方法slice()从当前jQuery对象中获取指定范围的子集(数组)，在调用方法.pushStack()把子集转换为jQuery
       对象，同时通过属性prevObject保留了对当前jQuery对象的引用。
         字符串转数组的快速方法 i = +i 这就直接将i变为了数字。
+##静态属性和方法
+###jQuery.noConflict([removeAll])
+    if(window.$ === jQuery){window.$ = _$}只有在jQuery库持有全局变量$的情况下，才会释放$的控制权，用_$代替。
+    if(deep && window.jQuery = _jQuery) 传入参数true，则表示用_jQuery代替jQuery
+###jQuery.type(obj)
+      判断参数内建javascript类型。如果参数是undefined或者null，则返回undefined或null；如果参数是javascript内部
+    对象，则返回对应的字符串名称；其它情况一律返回“object”。
+    return obj == null ? String( obj ) :class2type[toString.call(obj)] || "object";
+      注意：如果obj是undefined，obj == null 为true。而String(obj)能将其转换为对应的原始字符串“undefined”或null
+###class2type
+    toString = Object.prototype.toString
+    class2type = {}
+    jquery.each("Boolean Number String Function Array Date RegExp Object".split(" "),function(i,name){
+        class2type["[object "+name+"]"] = name.toLowerCase();
+    })
+###jQuery.isWindow(obj)
+    通过特征属性setInterval来实现判断是否是window对象。
+    return obj && typeof obj === "object" && "setInterval" in obj;
+###jQuery.isNumeric( value )
+    用于判断参数是否是数字或者看起来像数字。
+    !isNaN(parseFloat(obj)) && isFinite( obj );

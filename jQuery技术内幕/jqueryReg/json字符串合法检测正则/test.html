@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        // JSON RegExp
+        var rvalidchars = /^[\],:{}\s]*$/,//检测字符串是否含有指定的字符（“]”、“，”、“：”，“{”，“}”，“\s”）
+        rvalidescape = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,  //用于匹配转义字符。
+        rvalidtokens = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,//匹配有效值（字符串，true,false,null,数值）
+        rvalidbraces = /(?:^|:|,)(?:\s*\[)+/g;//匹配正确的左方括号
+        var data = '{"name":"xt"}';
+        if (rvalidchars.test(data.replace(rvalidescape, "@")
+                .replace(rvalidtokens, "]")
+                .replace(rvalidbraces, ""))) {
+
+            console.log( new Function("return " + data)());
+
+        }else{
+            console.log('error json string');
+        }
+
+    </script>
+</body>
+</html>

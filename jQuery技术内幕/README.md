@@ -227,3 +227,18 @@
 ###jQuery.isNumeric( value )
     用于判断参数是否是数字或者看起来像数字。
     !isNaN(parseFloat(obj)) && isFinite( obj );
+    方法parseFloat(string)用于对字符串参数进行解析，并返回字符串中第一个数字。
+    parseFloat('12.3a')  ===>12.3
+    parseInt('12.3a')  ===>12
+    isNaN和isFinite是js原生函数。
+###isPlainObject(obj)
+    判断obj是否是用对象直接量{}或new Object()创建的对象。 参照jsSkill判断对象的类型isPlainObject
+###jQuery.parseJSON(data),jQuery.parseXML(data)
+      jQuery.parseJSON(data)接受一个格式化良好的json字符串，返回解析后的javascript对象。如果参数是不正确的，那么
+    抛出异常，如果参数为null或者undefined，空字符串，返回null.如果浏览器提供了原生的JSON.parse(),则使用该方法解析
+    json字符串，否则使用(new Function("return "+data))()解析JSON字符串。
+    data = jQuery.trim(data);//IE6/7不支持原生的JSON.parse,在使用(new Function("return "+data))()时，要移除空白符.
+      jQuery.parseXML(data)接受一个格式良好的XML字符串，返回解析后的XML文档。该方法使用浏览器原生的XML解析函数实现。
+    在IE9+和其它浏览器中，会使用DOMParser对象解析；在IE9以下的浏览器中，使用ActiveXObject对象解析。
+###inArray(elem,array,i)
+    if(indexOf){return indexOf.call(array,elem,i);} //如果浏览器支持数组方法indexOf(),调用并返回下标。ES5标准化。

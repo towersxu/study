@@ -281,3 +281,11 @@
     ropera = /(opera)(?:.*version)?[ \/]([\w.]+)/,
     rmsie = /(msie) ([\w.]+)/,
     rmozilla = /(mozilla)(?:.*? rv:([\w.]+))?/,
+
+##Sizzle
+1.从右往左匹配，因为父节点大多是情况下比子节点少，这么遍历相对较少。
+但是如果存在块间关系符（即相邻的块间有依赖关系）和位置伪类，则从左向右查找。如$("div button:first"),在查找所有div元素
+下的所有button元素中的第一个时，位置伪类过滤的是"div button"匹配元素的集合。
+2.  chunker.exec("");
+    m = chunker.exec(soFar);  //正则chunker每次匹配选择器表达式的剩余部分之前，先通过匹配一个空字符串来重置正则chunker
+    的开始位置，从而使得每次匹配都会从头开始匹配。直接设置chunker.lastIndex=0也能达到同样的效果。

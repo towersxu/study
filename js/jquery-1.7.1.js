@@ -3898,7 +3898,7 @@
                 chunker.exec("");
                 m = chunker.exec(soFar);
 
-                if (m) {
+                if (m   ) {
                     soFar = m[3];
 
                     parts.push(m[1]);

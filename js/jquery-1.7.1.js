@@ -823,7 +823,7 @@
 
             // Mutifunctional method to get and set values to a collection
             // The value/s can optionally be executed if it's a function
-            access: function (elems, key, value, exec, fn, pass) {
+                access: function (elems, key, value, exec, fn, pass) {
                 var length = elems.length;
 
                 // Setting many attributes

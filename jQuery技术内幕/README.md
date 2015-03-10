@@ -242,3 +242,42 @@
     在IE9+和其它浏览器中，会使用DOMParser对象解析；在IE9以下的浏览器中，使用ActiveXObject对象解析。
 ###inArray(elem,array,i)
     if(indexOf){return indexOf.call(array,elem,i);} //如果浏览器支持数组方法indexOf(),调用并返回下标。ES5标准化。
+###jQuery.merge(first,second)
+      该方法用于合并两个数组的元素到第一个数组中。第一个数组可以使数组或类数组对象，即必须含有整形（或可转换为整形）属
+    性length;第二个参数可以是数组、类数组对象或任何含有连续整形属性的对象。该方法是破坏性的，会改变第一个数组。如果想
+    要保存第一个数组，可以创建一个副本。即 var newArr = jQuery.merge([],oldArr);
+    for(var l=second.length,j=0,i=first.length;j<l;j++){ first[i++] = second[j] }
+###jQuery.grep(array,callback,inv)
+    如果参数inv未传入或是false,返回一个满足回调函数的元素数组。如参数inv为true，返回一个不满足回调函数的元素数组。
+    var inv = !!inv;           retVal = !callback(elem[i],i);
+###jQuery.guid,jQuery.uuid
+      该属性是一个全局计数器，用于jQuery事件模块和缓存模块。在jQuery事件模块中，每个事件监听函数会被设置一个唯一的
+    guid属性，用来唯一标识这个函数；在缓存模块中，通过在DOM元素上附加一个唯一标识，来关联该元素和该元素对应的缓存。
+    属性guid初始值为1，每次增加1.
+    794     guid:1,
+    //jquery.data(elem,name,data,pvt)
+    1679    elem[internalKey] = id = ++jQuery.uuid
+    //jQuery.event.add:function(elem,types,handler,data,selector)
+    2861    handler.guid = jQuery.guid++;
+
+###jQuery.proxy(function,context)
+    接收一个函数，返回一个新的函数，新的函数有指定的上下文。
+    1）jQuery.proxy( function,context )
+        参数function是将被改变上下文函数，参数context是上下文。
+    2）jQuery.proxy( context,name )
+        参数name是参数context的属性。指定参数name对应的函数的上下文始终未context.
+    核心代码：
+    var args = slice.call(arguments, 2),        //获取其它参数
+        proxy = function () {
+            return fn.apply(context, args.concat(slice.call(arguments)));//代理函数调用fn,调用通过apply指定上下文。
+        };
+    proxy.guid = fn.guid = fn.guid || proxy.guid || jQuery.guid++; //设置唯一标识guid.
+###jQuery.browser
+    jQuery.browser通过解析navigator.userAgent来获取浏览器类型和版本，这叫做浏览器嗅探技术。
+    应该避免编写基于特定浏览器类型或版本号的代码，因为这会导致代码与特定的浏览器类型或版本紧密绑定在一起。解决浏览器兼容
+    问题更好的做法是基于浏览器功能测试编写代码。
+    // Useragent RegExp
+    rwebkit = /(webkit)[ \/]([\w.]+)/,
+    ropera = /(opera)(?:.*version)?[ \/]([\w.]+)/,
+    rmsie = /(msie) ([\w.]+)/,
+    rmozilla = /(mozilla)(?:.*? rv:([\w.]+))?/,

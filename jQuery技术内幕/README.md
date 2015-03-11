@@ -291,3 +291,17 @@
     的开始位置，从而使得每次匹配都会从头开始匹配。直接设置chunker.lastIndex=0也能达到同样的效果。
 
 ##jQuery.Callbacks(flag)
+
+###createFlag(flags)
+用于将字符串格式的标记转换为对象格式的标记，并把转换结果缓存起来。例如createFlags('once memory')会返回{once:true,memory:true}
+  var flagsCache = {}
+  function createFlag(flags){
+    //将变量object和flagCache[flags]指向同一个空对象，因此后面为变量object添加的属性也是在为flagCache[flags]添加属性。
+    var object = flagsCache[flags] = {}
+    //...
+    return object;
+  }
+  flags = flags ?(flagsCache[flags] || createFlags(flags)) :{}  //先从缓存中获取，没有就创建。
+###fire(context,args)
+  使用指定的上下文和参数，调用数组list中的所有回调函数。在memory模式下，回调函数列表的方法callbacks.add()在添加回调函数后，
+如果回调函数列表未禁用并且已经被触发过，也会调用工具函数fire(context,args)来立即执行新添加的回调函数。

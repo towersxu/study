@@ -600,7 +600,6 @@
 
             noop: function () {
             },
-
             // Evaluates a script in a global context
             // Workarounds based on findings by Jim Driscoll
             // http://weblogs.java.net/blog/driscoll/archive/2009/09/08/eval-javascript-global-context
@@ -872,7 +871,6 @@
                 function jQuerySub(selector, context) {
                     return new jQuerySub.fn.init(selector, context);
                 }
-
                 jQuery.extend(true, jQuerySub, this);
                 jQuerySub.superclass = this;
                 jQuerySub.fn = jQuerySub.prototype = this();

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../js/jquery-1.7.1.js"></script>
+</head>
+<body>
+    <button id="btn">click</button>
+    <script>
+        var callbacks = jQuery.Callbacks('memory'),
+            something = true,
+            otherthing = true;
+            function fn1(args){
+                console.log('fn1',args);
+                if(something){
+                    callbacks.fire('测试：执行过程中，第2次触发。');
+                    callbacks.fire('测试：执行过程中，第3次触发。');
+                   // console.log("fn1",'content');
+                    something = false;
+                }
+            }
+            function fn2(args){
+                console.log('fn2',args);
+                if(otherthing){
+                    callbacks.fire('测试fn2：执行过程中，第2次触发。');
+                    //console.log("fn2",'content');
+                    otherthing = false;
+                }
+
+            }
+            callbacks.add(fn1);
+            callbacks.add(fn2);
+            callbacks.fire("测试：第一次触发");
+    </script>
+</body>
+</html>

@@ -8,25 +8,7 @@
 <body>
     <button id="btn">click</button>
     <script>
-        var obj = {
-            name:'xt'
-        };
-        function obj1(){
-            this.name = 'xt';
-        }
-        var obj2 = new Object();
-        var hasOwn = Object.prototype.hasOwnProperty;
-        console.log(obj.constructor);
-        console.log(obj2.constructor);
-        console.log((new obj1()).constructor);
 
-        console.log(hasOwn.call(obj,"constructor"));
-        console.log(hasOwn.call(obj2,"constructor"));
-        console.log(hasOwn.call((new obj1()),"constructor"));
-        console.log('-----------');
-        console.log(hasOwn.call(obj.constructor.prototype, "isPrototypeOf"));
-        console.log(hasOwn.call(obj2.constructor.prototype, "isPrototypeOf"));
-        console.log(hasOwn.call((new obj1()).constructor.prototype, "isPrototypeOf"));
     </script>
 </body>
 </html>

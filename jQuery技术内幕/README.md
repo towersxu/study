@@ -289,3 +289,5 @@
 2.  chunker.exec("");
     m = chunker.exec(soFar);  //正则chunker每次匹配选择器表达式的剩余部分之前，先通过匹配一个空字符串来重置正则chunker
     的开始位置，从而使得每次匹配都会从头开始匹配。直接设置chunker.lastIndex=0也能达到同样的效果。
+
+##jQuery.Callbacks(flag)

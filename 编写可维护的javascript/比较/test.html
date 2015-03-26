@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        var obj = {
+            toString:function(){
+                return "0x19";
+            }
+        };
+        var obj1 = 25;
+        var obj2 = {
+            toString:function(){
+                return 25;
+            }
+        };
+        console.log(obj1 == obj);  //true
+        console.log(obj2 == obj);   //false
+        console.log(obj2 == obj1);  //true
+        console.log(obj == "25");   //false
+        console.log(obj2 == "25");  //true
+    </script>
+</body>
+</html>

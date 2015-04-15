@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        "use strict";
+        var person = {
+            name:'xt',
+            id:'021219'
+        };
+//        Object.preventExtensions(person);
+//        console.log(Object.isExtensible(person));
+//        console.log(person.id);
+//        delete person.id;
+//        console.log(person.id)
+//        person.id = '12345';
+        Object.freeze(person);
+        console.log(Object.isExtensible(person));
+        console.log(Object.isSealed(person));
+        console.log(Object.isFrozen(person));
+        person.id='20101515';
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <button id="btn">btn</button>
+    <script>
+        function DOMWrapper(element){
+            this.element = element;
+        }
+        DOMWrapper.prototype.addClass = function(className){
+            this.element.className += " " +className;
+        };
+        DOMWrapper.prototype.remove = function(){
+            this.element.parentNode.removeChild(this.element);
+        };
+        var wrapper = new DOMWrapper(document.getElementById("btn"));
+        wrapper.addClass("bb");
+        wrapper.addClass("ab");
+
+        var e = document.getElementById("btn");
+        e.className +=" "+"cc";
+    </script>
+</body>
+</html>

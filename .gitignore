@@ -2,3 +2,9 @@
 .idea
 build/git
 requireJS/source
+bootstrap/bootstrap
+bootstrap/node_modules
+AngularJS/app
+AngularJS/e2e-tests
+AngularJS/node_modules
+AngularJS/phonecat

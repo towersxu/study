@@ -4,7 +4,7 @@
 require.config({
     baseUrl: '../js',
     paths:{
-        jquery:'jquery-2.1.1'
+ //       jquery:'jquery-2.1.1'
     }
 });
 require(['jquery'],function($){

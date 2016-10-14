@@ -7,6 +7,10 @@ var stepInfo = [
   {
     name: '绘制一个点',
     src: './step02.js'
+  },
+  {
+    name: '在JS中绘制一个点',
+    src: './step03.js'
   }
 ]
 function appendStep() {

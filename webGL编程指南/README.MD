@@ -50,3 +50,11 @@ attribute变量声明必须成全局变量，数据将从着色器外部传给�
   - `location`:修改的attribute变量的存储位置
 
 - uniform变量：传输所有顶点都相同或者无关的数据
+  `gl.getUniformLocation`
+  `gl.uniform4fv(u_FragColor,g_colors[i])`
+
+### 总结
+顶点着色器进行的是逐顶点的操作，片元着色器进行的是逐片元的操作。
+
+
+## 第二章

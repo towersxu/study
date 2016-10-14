@@ -29,7 +29,7 @@
 
 ### 在js中将位置信息传给顶点着色器
 - attribute变量：传输与顶点位置相关的数据
-```c
+```glsl
   attribute vec4 a_Position
 ```
 attribute变量声明必须成全局变量，数据将从着色器外部传给该变量。
@@ -38,15 +38,15 @@ attribute变量声明必须成全局变量，数据将从着色器外部传给�
 先要向WebGL系统获取变量的存储地址，然后才能拿该变量传输数据。
 `gl.getAttribLocation(program,name)`
   - `program`:指定包含顶点着色器和片元着色器的着色器程序对象
-`gl.vertexAttrib1f(location, v0)`
-`gl.vertexAttrib2f(location, v0, v1)`
-`gl.vertexAttrib3f(location, v0, v1, v2)`
-`gl.vertexAttrib4f(location, v0, v1, v2, v3)`
-```javascript
-  var postion = new Float32Array([1.0,2.0,3.0,1.0])
-  gl.vertexAttrib4fv(location, postion) // 带有v表示可以接受数组作为参数
-```
+    ```javascript
+      gl.vertexAttrib1f(location, v0)
+      gl.vertexAttrib2f(location, v0, v1)
+      gl.vertexAttrib3f(location, v0, v1, v2)
+      gl.vertexAttrib4f(location, v0, v1, v2, v3)
 
+      var postion = new Float32Array([1.0,2.0,3.0,1.0])
+      gl.vertexAttrib4fv(location, postion) // 带有v表示可以接受数组作为参数
+    ```
   - `location`:修改的attribute变量的存储位置
 
 - uniform变量：传输所有顶点都相同或者无关的数据

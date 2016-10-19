@@ -57,4 +57,74 @@ attribute变量声明必须成全局变量，数据将从着色器外部传给�
 顶点着色器进行的是逐顶点的操作，片元着色器进行的是逐片元的操作。
 
 
-## 第二章
+## 第三章
+
+### 使用缓存区对象向顶点着色器传输多个顶点的数据。
+- 创建缓冲区对象（gl.createBuffer()）
+- 绑定缓冲区对象（gl.bindBuffer()）
+- 将数据写入缓冲区对象 (gl.bufferData())
+- 将缓冲区对象分配给一个attribute变量 （gl.vertexAttribPointer）
+- 开启attribute变量（gl.enableVertexAttribArray）
+
+### 创建缓冲区对象
+- gl.createBuffer() 成功返回值非null.失败返回null
+- gl.deleteBuffeer(buffer) 无返回值
+
+### 绑定缓冲区对象
+将缓冲区对象绑定到webGL系统中已经存在的“目标”上。
+
+- `gl.bindBuffer(target,buffer)`
+target：可取值为`gl.ARRAY_BUFFER`,`gl.ELEMENT_ARRAY_BUFFER`
+  + `gl.ARRAY_BUFFER `表示缓冲区对象中包含了顶点的数据
+  + `gl.ELEMENT_ARRAY_BUFFER`表示缓冲区对象中包含了顶到的索引值
+
+### 将数据写入缓冲区对象
+`gl.bufferData(target, data, usage)`,将`variable`中的数据写入绑定了`gl.ARRAY_BUFFER`上的缓冲区对象。我们不能直接向缓冲区写入数据，而只能向`target`写入数据，所以要向缓冲区写数据，必须先绑定。
+
+### 类型化数组
+创建类型化数组唯一的方法是使用`new`运算符
+- get(index)
+- set(index,value)
+- set(array, offset)
+- length
+- BYTES_PER_ELEMENT
+
+### 将缓冲区对象分配给attribute变量
+**gl.vertexAttribPointer(location, size, type, normalized, stride, offset)**
+- location:指待分配attribute变量的存储位置
+- size:指定缓冲区中每个顶点的分量个数（1到4）。若size比attribute变量需要的分量小，缺失分量会自动补齐。
+- type:
+  + gl.UNSIGNED_BYTE 无符号字节，Uint8Array
+  + gl.SHORT 短整形，Int16Array
+  + gl.UNSIGNED_SHORT 无符号短整形，Uint16Array
+  + gl.INT 整形，Int32Array
+  + gl.UNSIGNED_INT 无符号整形，Uint32Array
+  + gl.FLOAT 浮点型，Float32Array
+- normalized: 传入true或者false,表明是否将非浮点型的数据归一化到[0,1]或者[-1,-1]区间
+- stride: 只相邻两个顶点间的字节数，默认为0
+- offset: 偏移量
+
+### 开启attribute变量
+为了使顶点着色器能够访问缓冲区内的数据，需要使用`gl.enableVertexAttribArray(location)`来开启attribute变量。
+`gl.disableVertexArray(location)`
+
+### webGL基本图形
+
+![palette](chpter03/img/01.png)
+
+### 变化矩阵
+
+- 平移矩阵：
+![palette](chpter03/img/02.png)
+
+- 旋转矩阵:
+![palette](chpter03/img/03.png)、
+
+- 缩放矩阵:
+![palette](chpter03/img/04.png)
+
+### 按行主序（row major order）和按列主序（column major order）
+
+![palette](chpter03/img/05.png)
+
+WebGL和OpenGL都是按列主序

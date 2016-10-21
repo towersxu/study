@@ -37,7 +37,7 @@ function main() {
     return;
   }
 
-  // 
+  //
   var n = initVertexBuffers(gl);
   if (n < 0) {
     console.log('Failed to set the vertex information');
@@ -57,14 +57,14 @@ function main() {
 function initVertexBuffers(gl) {
   var verticesColors = new Float32Array([
     // Vertex coordinates and color
-     0.0,  0.5,  1.0,  0.0,  0.0, 
-    -0.5, -0.5,  0.0,  1.0,  0.0, 
-     0.5, -0.5,  0.0,  0.0,  1.0, 
+     0.0,  0.5,  1.0,  0.0,  0.0,
+    -0.5, -0.5,  0.0,  1.0,  0.0,
+     0.5, -0.5,  0.0,  0.0,  1.0,
   ]);
   var n = 3; // The number of vertices
 
   // Create a buffer object
-  var vertexColorBuffer = gl.createBuffer();  
+  var vertexColorBuffer = gl.createBuffer();
   if (!vertexColorBuffer) {
     console.log('Failed to create the buffer object');
     return false;

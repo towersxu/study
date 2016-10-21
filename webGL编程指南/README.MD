@@ -128,3 +128,26 @@ target：可取值为`gl.ARRAY_BUFFER`,`gl.ELEMENT_ARRAY_BUFFER`
 ![palette](chpter03/img/05.png)
 
 WebGL和OpenGL都是按列主序
+
+##第四章
+这章主要是调用写好的方法，就不谢笔记了。
+- `gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements)`
+
+##第五章
+
+- 图形装配过程：将孤立的坐标点装配成几何图形。几何图形的类别由gl.drawArrays()函数的第一个参数决定。
+- 图元光栅化（rasterzation process）表示发送在顶点着色器和片元着色器之间的从图形到片元的转化。
+
+  ```javascript
+  var FSIZE = verticesSizes.BYTES_PER_ELEMENT;
+  gl.vertexAttribPointer(a_PointSize, 1, gl.FLOAT, false, FSIZE*3, FSIZE*2)
+  ```
+- varying变量（颜色变量）
+
+- 纹理映射（texture mapping）
+  1. 准备好映射到几何图形上的纹理图像
+  2. 为几何图形配置纹理映射方式
+  3. 加载纹理图像，对其进行一些配置，以在WebGL中使用它
+  4. 在片元着色器中将相应的纹素从纹理中抽取出来，并将纹素的颜色赋给片元。
+
+- 纹理坐标（texture coordinates, st坐标系统）

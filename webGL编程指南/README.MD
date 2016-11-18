@@ -7,9 +7,9 @@
 
 ### gl.clear(buffer)
 参数 buffer
-`gl.COLOR_BUFFER_BIT`   - 指定颜色缓存
-`gl.DEPTH_BUFFER_BIT`   - 指定深度缓冲区
-`gl.STENCIL_BUFFER_BIT` - 指定模板缓冲区
+- `gl.COLOR_BUFFER_BIT`   - 指定颜色缓存
+- `gl.DEPTH_BUFFER_BIT`   - 指定深度缓冲区
+- `gl.STENCIL_BUFFER_BIT` - 指定模板缓冲区
 
 ### 着色器
 在三维场景中，仅仅用线条和颜色把图形画出来是远远不够的。还需要考虑光照射上去之后，或者观察者视角发生变化等对场景的影响。
@@ -143,6 +143,8 @@ WebGL和OpenGL都是按列主序
   gl.vertexAttribPointer(a_PointSize, 1, gl.FLOAT, false, FSIZE*3, FSIZE*2)
   ```
 - varying变量（颜色变量）
+  varying变量的作用是从顶点着色器向片元着色器传输数据。即在顶点着色器上使用attribute变量接收数据，然后声明verying变量，用于向attribute接收的数据传递给片元着色器。
+
 
 - 纹理映射（texture mapping）
   1. 准备好映射到几何图形上的纹理图像
@@ -151,3 +153,50 @@ WebGL和OpenGL都是按列主序
   4. 在片元着色器中将相应的纹素从纹理中抽取出来，并将纹素的颜色赋给片元。
 
 - 纹理坐标（texture coordinates, st坐标系统）
+![palette](chpter05/img/1.png)
+
+- `STATIC_DRAW`
+
+- 图形Y轴反转
+  `gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1)`
+  WebGL纹理坐标系统中的t轴的方向和PNG,BMP,JPG等格式图片的坐标系统的Y轴方向是相反的。因此，只有先将图像Y轴进行反转，才能够正确地将图像映射到图形上。
+
+  `gk.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, A)`
+  将图像RGB颜色值的每一个分量乘以A。默认为false
+
+- 纹理参数`gl.texParameteri(target, pname, param)`
+  + `gl.TEXTUGE_MAG_FILTER` 纹理放大 默认-`gl.LINEAR`
+  + `gl.TEXTURE_MIN_FILTER` 纹理缩小 默认-`gl.NEAREST_MIPMAP_LINEAR`
+  + `gl.TEXTURE_WRAP_S` 纹理水平填充 默认-`gl.REPEAT`
+  + `gl.TEXTURE_WRAP_T` 纹理垂直填充 默认-`gl.REPEAT`
+
+  可以赋值给`gl.TEXTURE_MIN_FILTER`,`gl.TEXTUGE_MAG_FILTER`的非金字塔纹理类型常量
+  + `gl.NEAREST`: 使用原纹理上距离映射后像素（新像素）中心最近的那个像素的颜色值，作为新像素的值（使用曼哈顿距离：|x1-x2|+|y1-y2|）
+  + `gl.LINEAR`: 使用距离新像素中心最近的四个像素的颜色值的加权平均，作为新像素的值（与gl.NEAREST相比，该方法图像质量更好，但是会有较大开销。）
+
+  可以赋值给`gl.TEXTURE_WRAP_T`,`gl.TEXTURE_WRAP_S`的常量
+  + `gl.REPEAT`: 平铺试的重复纹理
+  + `gl.MIRRORED_REPEAT`: 镜像对称式的重复纹理
+  + `gl.CLAMP_TO_EDGE`: 使用纹理图像边缘值
+
+- 将纹理图像分配给纹理对象 （`gl.texImage2D(target, level, internalformat, format, type, image)`）
+  + `target`: `gl.TEXTURE_2D`或者`gl.TEXTURE_CUBE_MAP`
+  + `level`: 0,(为金字塔纹理准备的)
+  + `internalformat`: 图像内部格式
+  + `format`: 纹素数据格式,必须使用与`internalformat`相同的值
+  + `type`: 纹理数据的类型
+  + `image`: 包含纹理图像的Image对象
+
+-  纹素数据格式
+  根据纹理图像的格式来选择不同的参数，一般：JPG格式对应`gl.RGB`,PNG格式对应`gl.RGBA`,BMP对应`gl.RGB`,灰度图像对应`gl.LUMINANCE`和`gl.LUMINANCE_ALPHA`
+  `流明`：通常使用物体表面红、绿、蓝分量值的加权平均来计算流明。
+
+- 纹理数据的数据格式
+  + `gl.UNSIGNED_BYTE` 无符号整型，每个颜色分量占据1字节
+  + `gl.UNSIGNED_SHORT_5_6_5` RGB：每个分量分别占据5，6，5比特
+  + `gl.UNSIGNED_SHORT_4_4_4_4` RGBA:每个分量分别占据4，4，4，4比特
+  + `gl.UNSIGNED_SHORT_5_5_5_1` RGBA:RGB每个分量各占据5比特，A分量占据1比特
+
+- 将纹理单位传递给片元着色器`gl.uniform1i(u_Sampler, texUnit)`
+
+- `vec4 texture2D(sampler2D sampler, vec2 coord)`抽取纹素颜色。

@@ -8,3 +8,5 @@ AngularJS/app
 AngularJS/e2e-tests
 AngularJS/node_modules
 AngularJS/phonecat
+.DS_Store
+*.log

@@ -265,3 +265,23 @@ Promise.resolve(foo1(2)).then(function(res){
 ```
 
 - promise链中的错误很容易被无意中默默忽略掉。
+
+### 生成器（generator）
+
+```javascript
+function *foo() {
+  var y = x * (yield "hello");
+  return y;
+}
+
+var it = foo(6);
+var res = it.next(); // 启动生成器，第一个next不需要传任何东西
+res.value;  // "hello"
+
+res = it.next(7);
+res.value; // 42
+```
+
+- `yield ..`和`next(..)`这一对组合起来，在生成器的执行过程中构成了一个双向消息传递系统。
+- 在生成器的起始处调用第一个next()时，还没有暂停的yield来接收这样一个值。如果第一个next()传递了值会被丢弃，所以第一个next不要传参数。
+- 没有return

@@ -10,3 +10,4 @@ AngularJS/node_modules
 AngularJS/phonecat
 .DS_Store
 *.log
+node_modules

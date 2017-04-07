@@ -17,7 +17,6 @@ def parse_file(datafile):
     data = []
     with open(datafile, "rb") as f:
         header = f.readline().split(",")
-        print header
         counter = 0
         for line in f:
             if counter == 10:
@@ -25,7 +24,6 @@ def parse_file(datafile):
 
             fields = line.split(",")
             entry = {}
-            print fields
             for i,value in enumerate(fields):
                 entry[header[i].strip()] = value.strip()
 
